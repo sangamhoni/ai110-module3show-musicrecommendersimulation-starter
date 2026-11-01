@@ -2,6 +2,13 @@ import csv
 from typing import List, Dict, Tuple, Optional
 from dataclasses import dataclass
 
+# Scoring weights (see "Algorithm Recipe" in README.md)
+GENRE_WEIGHT = 2.0
+MOOD_WEIGHT = 1.0
+ENERGY_WEIGHT = 2.0
+ACOUSTIC_WEIGHT = 0.5
+MAX_SCORE = GENRE_WEIGHT + MOOD_WEIGHT + ENERGY_WEIGHT + ACOUSTIC_WEIGHT
+
 @dataclass
 class Song:
     """
@@ -64,16 +71,16 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     reasons = []
 
     if song["genre"] == user_prefs.get("favorite_genre"):
-        score += 2.0
-        reasons.append(f"genre match: {song['genre']} (+2.0)")
+        score += GENRE_WEIGHT
+        reasons.append(f"genre match: {song['genre']} (+{GENRE_WEIGHT:.1f})")
 
     if song["mood"] == user_prefs.get("favorite_mood"):
-        score += 1.0
-        reasons.append(f"mood match: {song['mood']} (+1.0)")
+        score += MOOD_WEIGHT
+        reasons.append(f"mood match: {song['mood']} (+{MOOD_WEIGHT:.1f})")
 
     # Reward closeness to the target energy, not just high or low energy
     if "target_energy" in user_prefs:
-        energy_points = 2.0 * (1 - abs(song["energy"] - user_prefs["target_energy"]))
+        energy_points = ENERGY_WEIGHT * (1 - abs(song["energy"] - user_prefs["target_energy"]))
         score += energy_points
         reasons.append(
             f"energy {song['energy']:.2f} vs target {user_prefs['target_energy']:.2f} (+{energy_points:.2f})"
@@ -81,10 +88,10 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
 
     if "likes_acoustic" in user_prefs:
         if user_prefs["likes_acoustic"]:
-            acoustic_points = 0.5 * song["acousticness"]
+            acoustic_points = ACOUSTIC_WEIGHT * song["acousticness"]
             label = "acoustic sound"
         else:
-            acoustic_points = 0.5 * (1 - song["acousticness"])
+            acoustic_points = ACOUSTIC_WEIGHT * (1 - song["acousticness"])
             label = "non-acoustic sound"
         score += acoustic_points
         reasons.append(f"{label}: acousticness {song['acousticness']:.2f} (+{acoustic_points:.2f})")

@@ -9,9 +9,7 @@ You will implement the functions in recommender.py:
 - recommend_songs
 """
 
-from src.recommender import load_songs, recommend_songs
-
-MAX_SCORE = 5.5
+from src.recommender import MAX_SCORE, load_songs, recommend_songs
 
 
 def print_recommendations(name: str, user_prefs: dict, recommendations: list) -> None:
@@ -47,6 +45,43 @@ def main() -> None:
             "favorite_genre": "lofi",
             "favorite_mood": "chill",
             "target_energy": 0.40,
+            "likes_acoustic": True,
+        },
+        "Deep intense rock": {
+            "favorite_genre": "rock",
+            "favorite_mood": "intense",
+            "target_energy": 0.92,
+            "likes_acoustic": False,
+        },
+        # Edge cases: profiles meant to trick the scoring logic
+        "Edge: hyped but sad": {
+            "favorite_genre": "folk",
+            "favorite_mood": "sad",
+            "target_energy": 0.90,
+            "likes_acoustic": True,
+        },
+        "Edge: genre not in catalog": {
+            "favorite_genre": "k-pop",
+            "favorite_mood": "happy",
+            "target_energy": 0.75,
+            "likes_acoustic": False,
+        },
+        "Edge: acoustic metalhead": {
+            "favorite_genre": "metal",
+            "favorite_mood": "angry",
+            "target_energy": 0.95,
+            "likes_acoustic": True,
+        },
+        "Edge: capitalized labels": {
+            "favorite_genre": "Pop",
+            "favorite_mood": "Happy",
+            "target_energy": 0.80,
+            "likes_acoustic": False,
+        },
+        "Edge: energy out of range": {
+            "favorite_genre": "lofi",
+            "favorite_mood": "chill",
+            "target_energy": 1.50,
             "likes_acoustic": True,
         },
     }
