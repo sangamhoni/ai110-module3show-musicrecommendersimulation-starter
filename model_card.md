@@ -40,7 +40,7 @@ The starter code had no real logic. It just returned the first few songs. I adde
 - The catalog has 18 songs. The starter file had 10, and I added 8 more.
 - My new songs added genres and moods that were missing: hip hop, classical, metal, country, r&b, edm, folk, and reggae, plus moods like sad, angry, peaceful, romantic, and nostalgic.
 - Each song has a genre, a mood, and 5 numbers: energy, tempo, valence (how happy it sounds), danceability, and acousticness.
-- My system only uses genre, mood, energy, and acousticness.
+- My system only uses genre, mood, energy, and acousticness by default. I later added 5 optional features (mood tags, release decade, popularity, instrumentalness, and speechiness) and 4 scoring modes, which only change the results when a profile or mode uses them.
 
 Limits of the data:
 

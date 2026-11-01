@@ -61,6 +61,8 @@ The highest possible score is 5.5. The energy rule gives the most points to song
 
 After every song has a score, the system sorts them from highest to lowest. If two songs tie, the one with the lower id goes first. It then shows the top 5 songs with their scores and reasons.
 
+**Extra features and modes:** I also added 5 optional features (mood tags, release decade, popularity, instrumentalness, and speechiness) that only count if a profile sets them, plus 4 scoring modes you can switch with `python -m src.main --mode <balanced | genre-first | mood-first | energy-focused>`. See `ai_interactions.md` for details.
+
 ```
 User prefs + songs.csv  ->  score every song  ->  sort by score  ->  top 5 with reasons
 ```
@@ -116,6 +118,7 @@ Output of `python -m src.main`:
 ```
 Loading songs from data/songs.csv...
 Loaded songs: 18
+Scoring mode: balanced (The original recipe: genre first, then energy and mood)
 
 ============================================================
 Profile: Happy pop (default)
